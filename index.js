@@ -26,7 +26,7 @@ class Bot extends EventEmitter {
      * Starts a Real Time Messaging API session
      */
      login() {
-         this._api('rtm.start').then((data) => {
+         this._api('rtm.connect').then((data) => {
              this.wsUrl = data.url;
              this.self = data.self;
              this.team = data.team;
@@ -243,6 +243,21 @@ class Bot extends EventEmitter {
         }.bind(this)).then(function(data) {
             return typeof data === 'string' ? data : data.channel.id;
         });
+    }
+
+    /**
+     * Gets info on a file by ID
+     * @param {string} id - file ID
+     * @param {string} count - Optional. Number of items to return per page.
+     * @param {object} page - Optional. Page number of results to return.
+     * @returns {vow.Promise}
+     */
+    getFileInfo(id, params) {
+        params = extend({
+            file: id,
+        }, params || {});
+
+        return this._api('file.info', params);
     }
 
     /**
