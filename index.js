@@ -256,8 +256,7 @@ class Bot extends EventEmitter {
         params = extend({
             file: id,
         }, params || {});
-
-        return this._api('file.info', params);
+        return this._api('files.info', params);
     }
 
     /**
